@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import React, { useState, useCallback } from "react";
 import './App.css';
+import Button from "./Button";
+
 
 function App() {
+  const [count, setCount] = useState(0);
+  const [other, setOther] = useState(false);
+
+  const increment = () => setCount(c => c + 1);
+
+  const handleClick = useCallback(() => {
+    console.log("Child Button Clicked!")
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ textAlign: "center", padding: "2rem" }} className="App">
+      <h1>useCallback Example</h1>
+      <h2>Count: {count}</h2>
+      <button onClick={increment}>Increment Count</button>
+      <br />
+      <button onClick={() => setOther(o => !o)}>Toggle Other State</button>
+      <Button handleClick={handleClick} label="Child Button" />
+
     </div>
   );
 }
